@@ -16,5 +16,5 @@ if(file_exists($file))                          //判断文件是否存在，来
                 echo "签到失败";
 }
 else
-        echo "不存在此用户";
+        echo "此用户不存在";
 ?>
