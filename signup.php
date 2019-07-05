@@ -9,7 +9,10 @@ else
         $file=$num.'/'.$num.".txt";                       //签到日志位置
         if(!file_exists($file))                          //判断文件是否存在，来判断是否存在该用户
         {
-                 
+                mkdir($num);                            //创建文件夹
+                file_put_contents($file, '', FILE_APPEND | LOCK_EX);            //创建签到日志
         }
+        else
+                echo "此用户已存在";
 }
 ?>
