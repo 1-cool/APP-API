@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: text/html;charset=utf-8");
-if(empty($_POST["name"])||empty($_POST["num"]))
+if(empty($_POST["name"])||empty($_POST["num"]))          //判断数据是否为空
         echo "填写的数据不能为空";
 else
 {
