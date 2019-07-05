@@ -10,7 +10,7 @@ else
         if(!file_exists($file))                             //判断文件是否存在，来判断是否存在该用户
         {
                 mkdir($num);                            //创建文件夹
-                file_put_contents($file, '', FILE_APPEND | LOCK_EX);            //创建签到日志
+                file_put_contents($file, $name, FILE_APPEND | LOCK_EX);            //创建签到日志
                 echo "用户创建成功";
         }
         else
