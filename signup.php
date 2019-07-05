@@ -11,6 +11,7 @@ else
         {
                 mkdir($num);                            //创建文件夹
                 file_put_contents($file, '', FILE_APPEND | LOCK_EX);            //创建签到日志
+                echo "用户创建成功";
         }
         else
                 echo "此用户已存在";
