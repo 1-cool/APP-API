@@ -1,11 +1,11 @@
 <?php
 $servername = "localhost";
-$username = "admin-data";
-$password = "zW4DEKfBWaTYTXsn";
-$dbname = "data";
+$username = "user";
+$password = "asdf";
+$dbname = "adf";
 
 header("Content-Type: text/json;charset=utf-8");
-if($_POST["password"]=='zhangaoran')          //判断数据是否为空
+if($_POST["password"]=='wqfeqfsdfgdfhgfdgn')          //判断数据是否为空
 {
 	// 创建连接
 	$conn = new mysqli($servername, $username, $password,$dbname);
