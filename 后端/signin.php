@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "admin-data";
-$password = "zW4DEKfBWaTYTXsn";
+$username = "name";
+$password = "pass";
 $dbname = "data";
  
 // 创建连接
