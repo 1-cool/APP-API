@@ -1,49 +1,75 @@
 <?php
 
+
 header("Content-Type: text/json;charset=utf-8");
-if($_POST["password"]=='asdfdsafasddfdasfdas')          //判断数据是否为空
+if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 {
-	// 创建连接
-	$conn = new mysqli($servername, $username, $password,$dbname);
+    //recevie post data
+    
 
-	// 检测连接
-	if ($conn->connect_error) {
-		die("连接失败: " . $conn->connect_error);
-	}
+    if($password==$pass)//verification password
+    {
+        // create connection
+        $con = new mysqli($servername, $dbusername, $dbpassword,$dbname);
 
-	//插入数据
-	// $data = date("Y/m/d H:i:s");
-	// $sql = "INSERT INTO Info (name, number)
-	// VALUES ('John', '184203')";
-	// if ($conn->query($sql) === TRUE) {
-	//     echo "新记录插入成功";
-	// } else {
-	//     echo "Error: " . $sql . "<br>" . $conn->error;
-	// }
+        // check connection
+        if ($con->connect_error)
+            die("connection fail: " . $con->connect_error);
 
-	//输出数据
-	$sql = "SELECT id, name, number,subject,phone,teachar,qq,sex,count FROM info";
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0)
-	{
-		// 输出数据
-		while($row = $result->fetch_assoc())
-		{
-			$data = array
-				(
-				 'id'=>$row["id"],
-				 'name'=>$row["name"],
-				 'num'=>$row["number"],
-				 'work'=>$row["subject"],
-				 'phone'=>$row["phone"],
-				 'teachar'=>$row["teachar"],
-				 'qq'=>$row["qq"],
-				 'sex'=>$row["sex"],
-				 'cont'=>$row["count"]
-				);
-			$data = json_encode($data,JSON_UNESCAPED_UNICODE);
-			echo $data;
-		}
-	}
+        //return all user's data
+        if(empty($number))
+        {
+            //print json data
+            $result = $con->query("SELECT id, name, number,subject,phone,teacher,qq,sex,count FROM info");
+            if ($result->num_rows > 0)
+            {
+                $data=[];
+                while($row = $result->fetch_assoc())
+                {
+                    $info = array
+                        (
+                            'id'=>$row["id"],
+                            'name'=>$row["name"],
+                            'num'=>$row["number"],
+                            'work'=>$row["subject"],
+                            'phone'=>$row["phone"],
+                            'teacher'=>$row["teacher"],
+                            'qq'=>$row["qq"],
+                            'sex'=>$row["sex"],
+                            'cont'=>$row["count"]
+                        );
+                    $data[]=$info;
+                }
+                $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+                echo $data;
+            }
+        }
+
+        else
+        {
+            //modify data
+            if($modify!="id"&&$modify!="name"&&$modify!="number"&&$modify!="sex")
+            {
+                $result=$con->query("UPDATE info SET $modify=$modifydata WHERE number=$number");
+                if($result)
+                    echo "success";
+                else
+                    echo "fail";
+            }
+            else
+                echo "not-allowed";
+        }
+
+
+    }
+}
+
+//filter input
+function checkinput($input)
+{
+    $input=trim($input);
+    $input=stripslashes($input);
+    $input=htmlspecialchars($input);
+    return $input;
 }
 ?>
