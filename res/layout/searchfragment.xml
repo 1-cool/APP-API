@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:background="#46A3FF"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询部员信息"
+            android:layout_marginTop="100dp"
+            android:textSize="28sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="130dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="210dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_corn_down">
+
+        <ImageView
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/wode1"/>
+
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:inputType="text"
+            android:hint="请输入部员姓名"/>
+
+        <Button
+            android:id="@+id/gosearch"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edittext"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="查询"
+            android:background="@drawable/button_color"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

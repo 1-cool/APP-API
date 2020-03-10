@@ -1,0 +1,195 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D2E9FF">
+
+
+
+    <RelativeLayout
+        android:id="@+id/r2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/shape_corn_down"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名:"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setname"
+            android:layout_toRightOf="@+id/name"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/num"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:text="学号:"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setnum"
+            android:layout_toRightOf="@+id/num"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/setname"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/num"
+            android:layout_marginTop="25dp"
+            android:text="专业:"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setwork"
+            android:layout_toRightOf="@+id/work"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/setnum"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/work"
+            android:layout_marginTop="25dp"
+            android:text="导员:"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setteather"
+            android:layout_toRightOf="@+id/teacher"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/setwork"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/shape_corn_down"
+        android:layout_below="@+id/r2">
+
+        <TextView
+            android:id="@+id/qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text=" Q Q  :"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setqq"
+            android:layout_toRightOf="@+id/qq"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+           />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/qq"
+            android:layout_marginLeft="10dp"
+            android:text="电话:"
+
+            android:layout_marginTop="25dp"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setphone"
+            android:layout_toRightOf="@+id/phone"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/setqq"
+            />
+
+        <TextView
+            android:id="@+id/cont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone"
+            android:layout_marginTop="25dp"
+            android:text="积分:"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setcont"
+            android:layout_toRightOf="@+id/cont"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/setphone"
+            />
+
+        <ImageButton
+            android:id="@+id/xiugai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="330dp"
+            android:layout_marginTop="115dp"
+            android:background="#FFFFFF"
+            android:src="@drawable/xiugai0" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/baocun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r3"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/shape_con_down2"
+        android:text="保存"
+        android:textSize="20sp"/>
+
+
+</RelativeLayout>

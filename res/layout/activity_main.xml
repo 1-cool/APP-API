@@ -1,33 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:layout_margin="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Button
+    <LinearLayout
+        android:id="@+id/fragment_cont"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_1"
-        android:text="全部名单"
-        android:id="@+id/gotoall"/>
-    <Button
+        android:layout_height="674dp"
+        android:background="#F0F0F0"
+       android:orientation="vertical">
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/V1"
+        android:layout_above="@+id/id_diverline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_1"
-        android:layout_below="@+id/gotosearch"
-        android:layout_marginTop="10dp"
-        android:text="测试"
-        android:id="@+id/gototest"/>
-    <Button
+        android:layout_height="0.1dp"
+        android:background="#C2C5CE"
+        tools:ignore="UnknownId" />
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_1"
-        android:layout_below="@+id/gotoall"
-        android:layout_marginTop="10dp"
-        android:text="搜索"
-        android:id="@+id/gotosearch"/>
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/rg_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/shouye"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="1dp"
+                android:button="@null"
+                android:drawableTop="@drawable/shouye_pic_sele"
+                android:clickable="true"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="@drawable/text_sele"
+                android:textSize="12sp"
+                tools:ignore="OnClick"
+                android:focusable="true" />
+
+            <RadioButton
+                android:id="@+id/chaxun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="1dp"
+                android:button="@null"
+                android:drawableTop="@drawable/chaxun_pic_sele"
+                android:clickable="true"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:text="查询"
+                android:textColor="@drawable/text_sele"
+                android:textSize="12sp"
+                tools:ignore="OnClick"
+                android:focusable="true" />
+
+            <RadioButton
+                android:id="@+id/paihang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="1dp"
+                android:button="@null"
+                android:drawableTop="@drawable/paihangbang_pic_sele"
+                android:clickable="true"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:text="排行榜"
+                android:textColor="@drawable/text_sele"
+                android:textSize="12sp"
+                tools:ignore="OnClick"
+                android:focusable="true" />
+
+            <RadioButton
+                android:id="@+id/geren"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="1dp"
+                android:button="@null"
+                android:drawableTop="@drawable/gerenxingxi_pic_sele"
+                android:clickable="true"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:text="个人信息"
+                android:textColor="@drawable/text_sele"
+                android:textSize="12sp"
+                tools:ignore="OnClick"
+                android:focusable="true" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
 </RelativeLayout>
