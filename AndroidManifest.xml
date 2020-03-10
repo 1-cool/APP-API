@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dianming">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    package="com.example.ourapp">
 
     <application
         android:allowBackup="true"
@@ -12,11 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".allinformation"></activity>
-        <activity android:name=".test" />
-        <activity android:name=".Namesearch" />
-        <activity android:name=".Search" />
-        <activity android:name=".All" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
