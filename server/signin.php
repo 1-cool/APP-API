@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 {
     //recevie post data
     $token=checkinput($_POST["token"]);
-    $pass="as?df?!kj!?129!??!0340aflasf";
+    $pass="";
     $part=checkinput($_POST["part"]);
     $number=checkinput($_POST["number"]);
     $password=checkinput($_POST["password"]);
