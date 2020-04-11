@@ -1,65 +1,123 @@
 <?php
 
-
 header("Content-Type: text/json;charset=utf-8");
 if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 {
     //recevie post data
-    
+    $token=checkinput($_POST["token"]);
+    $pass="as?df?!kj!?129!??!0340aflasf";
+    $part=checkinput($_POST["part"]);
+    $number=checkinput($_POST["number"]);
+    $password=checkinput($_POST["password"]);
+    $modify=checkinput($_POST["modify"]);
+    $modifydata=checkinput($_POST["modifydata"]);
+    $remark=checkinput($_POST["remark"]);
 
-    if($password==$pass)//verification password
+    if($token==$pass)//verification password
     {
         // create connection
         $con = new mysqli($servername, $dbusername, $dbpassword,$dbname);
 
         // check connection
         if ($con->connect_error)
-            die("connection fail: " . $con->connect_error);
+            die("connection-fail:" . $con->connect_error);
 
-        //return all user's data
-        if(empty($number))
+        if(!empty($number)&&!empty($password))
         {
-            //print json data
-            $result = $con->query("SELECT id, name, number,subject,phone,teacher,qq,sex,count FROM info");
-            if ($result->num_rows > 0)
+            $result=$con->query("SELECT * FROM `$part` WHERE number='$number'");
+            if($result->num_rows>=1)//check user exist
             {
-                $data=[];
-                while($row = $result->fetch_assoc())
+                $row=$result->fetch_assoc();
+                $cpass=$row["password"];
+                if($password==$cpass)
                 {
-                    $info = array
-                        (
-                            'id'=>$row["id"],
-                            'name'=>$row["name"],
-                            'num'=>$row["number"],
-                            'work'=>$row["subject"],
-                            'phone'=>$row["phone"],
-                            'teacher'=>$row["teacher"],
-                            'qq'=>$row["qq"],
-                            'sex'=>$row["sex"],
-                            'cont'=>$row["count"]
-                        );
-                    $data[]=$info;
-                }
-                $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-                echo $data;
-            }
-        }
+                    //return all user's data
+                    if(empty($modify)||empty($modifydata)||empty($remark))
+                    {
+                        //print json data
+                        $result = $con->query("SELECT * FROM `$part`");
+                        if ($result->num_rows > 0)
+                        {
+                            $data=[];
+                            while($row = $result->fetch_assoc())
+                            {
+                                $info = array
+                                    (
+                                        'id'=>$row["id"],
+                                        'name'=>$row["name"],
+                                        'num'=>$row["number"],
+                                        'work'=>$row["subject"],
+                                        'phone'=>$row["phone"],
+                                        'teacher'=>$row["teacher"],
+                                        'qq'=>$row["qq"],
+                                        'sex'=>$row["sex"],
+                                        'cont'=>$row["count"],
+                                        'flag'=>$row["flag"]
+                                    );
+                                $data[]=$info;
+                            }
+                            $data = json_encode($data,JSON_UNESCAPED_UNICODE);
+                            echo $data;
+                        }
+                    }
 
-        else
-        {
-            //modify data
-            if($modify!="id"&&$modify!="name"&&$modify!="number"&&$modify!="sex")
-            {
-                $result=$con->query("UPDATE info SET $modify=$modifydata WHERE number=$number");
-                if($result)
-                    echo "success";
+                    else
+                    {
+                        //modify data
+                        if($modify!="id"&&$modify!="name"&&$modify!="number"&&$modify!="sex"&&$modify!="flag")
+                        {
+                            if($modify=='count')
+                            {
+                                $before=((($con->query("SELECT * FROM `$part` WHERE number='$number'"))->fetch_assoc())["count"]);
+                                $after=$before+$modifydata;
+                                if((($con->query("SHOW TABLES LIKE '$number'"))->num_rows)!=1)//check count table
+                                {
+                                    $sql="CREATE TABLE `$number`(".
+                                        "id INT UNSIGNED AUTO_INCREMENT,".
+                                        "cbefore INT NOT NULL,".
+                                        "cadd INT NOT NULL,".
+                                        "cafter INT NOT NULL,".
+                                        "remark VARCHAR(100) NOT NULL,".
+                                        "PRIMARY KEY ( id )".
+                                        ")ENGINE=InnoDB;";
+                                    $result=$con->query("$sql");
+                                    if(!$result)
+                                        echo "create-table-fail";
+                                }
+                                $sql="INSERT INTO `$number`".
+                                    "(cbefore,cadd, cafter,remark)".
+                                    "VALUES".
+                                    "('$before','$modifydata','$after','$remark')";
+                                $result=$con->query("$sql");
+                                if($result)
+                                    echo "insert-success";
+                                else
+                                    echo "insert-fail";
+                                $result=$con->query("UPDATE `$part` SET $modify='$after' WHERE number=$number");
+                                if($result)
+                                    echo "count-update-success";
+                                else
+                                    echo "count-update-fail";
+                            }
+                            else
+                            {
+                                $result=$con->query("UPDATE `$part` SET $modify='$modifydata' WHERE number=$number");
+                                if($result)
+                                    echo "update-success";
+                                else
+                                    echo "update-fail";
+                            }
+                        }
+                        else
+                            echo "not-allowed";
+                    }
+                }
                 else
-                    echo "fail";
+                    echo "wrong-password";
             }
             else
-                echo "not-allowed";
+                echo "user-does-not-exist";
         }
-
 
     }
 }
