@@ -1,5 +1,6 @@
 <?php
 
+
 header("Content-Type: text/json;charset=utf-8");
 if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 {
@@ -12,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
     $modify=checkinput($_POST["modify"]);
     $modifydata=checkinput($_POST["modifydata"]);
     $remark=checkinput($_POST["remark"]);
+    $cnumber=checkinput($_POST["cnumber"]);
 
     if($token==$pass)//verification password
     {
@@ -29,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
             {
                 $row=$result->fetch_assoc();
                 $cpass=$row["password"];
+                $flag=$row["flag"];
                 if($password==$cpass)
                 {
                     //return all user's data
@@ -66,7 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                         //modify data
                         if($modify!="id"&&$modify!="name"&&$modify!="number"&&$modify!="sex"&&$modify!="flag")
                         {
-                            if($modify=='count')
+                            if($flag==6&&!empty($cnumber))
+                                $number=$cnumber;
+                            if($modify=='count')//change count
                             {
                                 $before=((($con->query("SELECT * FROM `$part` WHERE number='$number'"))->fetch_assoc())["count"]);
                                 $after=$before+$modifydata;
@@ -80,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                                         "remark VARCHAR(100) NOT NULL,".
                                         "PRIMARY KEY ( id )".
                                         ")ENGINE=InnoDB;";
-                                    $result=$con->query("$sql");
+                                    $result=$con->query("$sql");//create table
                                     if(!$result)
                                         echo "create-table-fail";
                                 }
@@ -88,18 +93,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                                     "(cbefore,cadd, cafter,remark)".
                                     "VALUES".
                                     "('$before','$modifydata','$after','$remark')";
-                                $result=$con->query("$sql");
+                                $result=$con->query("$sql");//at number table record
                                 if($result)
                                     echo "insert-success";
                                 else
                                     echo "insert-fail";
-                                $result=$con->query("UPDATE `$part` SET $modify='$after' WHERE number=$number");
+                                $result=$con->query("UPDATE `$part` SET $modify='$after' WHERE number=$number");//update count
                                 if($result)
                                     echo "count-update-success";
                                 else
                                     echo "count-update-fail";
                             }
-                            else
+                            else//change other data
                             {
                                 $result=$con->query("UPDATE `$part` SET $modify='$modifydata' WHERE number=$number");
                                 if($result)
