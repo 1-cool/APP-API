@@ -1,0 +1,18 @@
+POST
+参数列表：
+token	//必需，令牌
+part	//必需，部门（software(软件研发部)，business(商务部)，electronic(电子部)，network(网络部)，office(办公室)，stpd(科宣部)）
+number	//必需，学号
+password	//必需，密码
+modify	//要修改的数据（subject，phone，teacher，qq，count，password）
+modifydata	//修改内容（count的话，-代表减）
+note	//改count必需，加减积分的理由
+cnumber	//管理员更改其他用户时，指定的学号
+返回值：
+create-table-fail	积分动态的表创建失败
+insert-success/insert-fail	积分动态表写入成功/失败
+count-update-success/count-update-fail	主表分数更新成功/失败
+update-success/update-fail	更新除count之外的数据成功/失败
+not-allowed	不允许修改
+wrong-password	密码错误
+user-does-not-exist	用户不存在
