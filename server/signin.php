@@ -6,13 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 {
     //recevie post data
     $token=checkinput($_POST["token"]);
-    $pass="";
+    $pass=" ";
     $part=checkinput($_POST["part"]);
     $number=checkinput($_POST["number"]);
     $password=checkinput($_POST["password"]);
     $modify=checkinput($_POST["modify"]);
     $modifydata=checkinput($_POST["modifydata"]);
-    $remark=checkinput($_POST["remark"]);
+    $note=checkinput($_POST["note"]);
     $cnumber=checkinput($_POST["cnumber"]);
 
     if($token==$pass)//verification password
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
 
         if(!empty($number)&&!empty($password))
         {
-            $result=$con->query("SELECT * FROM `$part` WHERE number='$number'");
+            $result=$con->query("SELECT * FROM `$part` WHERE number='$number' ");
             if($result->num_rows>=1)//check user exist
             {
                 $row=$result->fetch_assoc();
@@ -34,8 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                 $flag=$row["flag"];
                 if($password==$cpass)
                 {
+                    $name=$row["name"];//get name
                     //return all user's data
-                    if(empty($modify)||empty($modifydata)||empty($remark))
+                    if(empty($modify)||empty($modifydata))
                     {
                         //print json data
                         $result = $con->query("SELECT * FROM `$part`");
@@ -46,16 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                             {
                                 $info = array
                                     (
-                                        'id'=>$row["id"],
-                                        'name'=>$row["name"],
-                                        'num'=>$row["number"],
-                                        'work'=>$row["subject"],
-                                        'phone'=>$row["phone"],
-                                        'teacher'=>$row["teacher"],
-                                        'qq'=>$row["qq"],
-                                        'sex'=>$row["sex"],
-                                        'cont'=>$row["count"],
-                                        'flag'=>$row["flag"]
+                                        "id"=>$row["id"],
+                                        "name"=>$row["name"],
+                                        "num"=>$row["number"],
+                                        "work"=>$row["subject"],
+                                        "phone"=>$row["phone"],
+                                        "teacher"=>$row["teacher"],
+                                        "qq"=>$row["qq"],
+                                        "sex"=>$row["sex"],
+                                        "cont"=>$row["count"],
+                                        "flag"=>$row["flag"]
                                     );
                                 $data[]=$info;
                             }
@@ -67,12 +68,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                     else
                     {
                         //modify data
-                        if($modify!="id"&&$modify!="name"&&$modify!="number"&&$modify!="sex"&&$modify!="flag")
+                        if($modify=="subject"||$modify=="phone"||$modify=="teacher"||$modify=="qq"||$modify=="count"||$modify=="password")
                         {
                             if($flag==6&&!empty($cnumber))
                                 $number=$cnumber;
-                            if($modify=='count')//change count
+                            if($modify=="count")//change count
                             {
+                                if(empty($note))
+                                {
+                                    echo "note-can`t-be-empty";
+                                    exit(-1);
+                                }
                                 $before=((($con->query("SELECT * FROM `$part` WHERE number='$number'"))->fetch_assoc())["count"]);
                                 $after=$before+$modifydata;
                                 if((($con->query("SHOW TABLES LIKE '$number'"))->num_rows)!=1)//check count table
@@ -82,37 +88,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")//verification post
                                         "cbefore INT NOT NULL,".
                                         "cadd INT NOT NULL,".
                                         "cafter INT NOT NULL,".
-                                        "remark VARCHAR(100) NOT NULL,".
+                                        "note VARCHAR(100) NOT NULL,".
+                                        "change_by VARCHAR(15) NOT NULL,".
+                                        "date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,".
                                         "PRIMARY KEY ( id )".
                                         ")ENGINE=InnoDB;";
                                     $result=$con->query("$sql");//create table
                                     if(!$result)
+                                    {
                                         echo "create-table-fail";
+                                        exit(-1);
+                                    }
                                 }
                                 $sql="INSERT INTO `$number`".
-                                    "(cbefore,cadd, cafter,remark)".
+                                    "(cbefore,cadd, cafter,note,change_by)".
                                     "VALUES".
-                                    "('$before','$modifydata','$after','$remark')";
+                                    "('$before','$modifydata','$after','$note','$name')";
                                 $result=$con->query("$sql");//at number table record
                                 if($result)
+                                {
                                     echo "insert-success";
+                                    $result=$con->query("UPDATE `$part` SET $modify='$after' WHERE number='$number'");//update count
+                                    if($result)
+                                        echo "-count-update-success";
+                                    else
+                                        echo "-count-update-fail";
+                                }
                                 else
                                     echo "insert-fail";
-                                $result=$con->query("UPDATE `$part` SET $modify='$after' WHERE number=$number");//update count
-                                if($result)
-                                    echo "count-update-success";
-                                else
-                                    echo "count-update-fail";
+
                             }
                             else//change other data
                             {
-                                $result=$con->query("UPDATE `$part` SET $modify='$modifydata' WHERE number=$number");
+                                $result=$con->query("UPDATE `$part` SET $modify='$modifydata' WHERE number='$number'");
                                 if($result)
                                     echo "update-success";
                                 else
                                     echo "update-fail";
                             }
                         }
+                        
                         else
                             echo "not-allowed";
                     }
